@@ -1,0 +1,1956 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나에게 맞는 화공과 직무 유형 테스트</title>
+    <meta
+      name="description"
+      content="화공생물공학과 3·4학년을 위한 대학생활·조별과제·공부법 기반 MBTI 직무 유형 테스트"
+    />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-canvas: #f8f7f7;
+        --bg-surface: #ffffff;
+        --bg-subtle: #f4f4f5;
+        --border-hairline: #e5e5e5;
+        --text-primary: #141414;
+        --text-secondary: #525252;
+        --text-muted: #737373;
+        --red-primary: #dc2626;
+        --red-hover: #b91c1c;
+        --red-soft: #fef2f2;
+        --red-soft-hover: #fee2e2;
+        --red-light-text: #fee2e2;
+        --font-sans: "Pretendard Variable", "Pretendard", "Plus Jakarta Sans", -apple-system,
+          BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+        --font-display: "Plus Jakarta Sans", "Pretendard Variable", "Pretendard", sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: var(--font-sans);
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        -webkit-tap-highlight-color: transparent;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--bg-canvas);
+        color: var(--text-primary);
+        line-height: 1.5;
+      }
+
+      button {
+        font-family: inherit;
+        border: none;
+        background: none;
+        padding: 0;
+        color: inherit;
+        cursor: pointer;
+      }
+
+      button:focus-visible {
+        outline: 2px solid var(--red-primary);
+        outline-offset: 2px;
+      }
+
+      .font-display {
+        font-family: var(--font-display);
+      }
+
+      .font-mono-num {
+        font-family: var(--font-mono);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* Top Header */
+      .top-bar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        height: 56px;
+        padding: 0 16px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border-hairline);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text-primary);
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 4px 0;
+        border-radius: 8px;
+        transition: color 0.15s ease;
+      }
+
+      .brand-btn:hover {
+        color: var(--red-primary);
+      }
+
+      .brand-mark {
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        background-color: var(--red-primary);
+        flex-shrink: 0;
+      }
+
+      .header-meta {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .header-reset-btn {
+        min-height: 40px;
+        padding: 0 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        border-radius: 12px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: color 0.15s ease;
+      }
+
+      .header-reset-btn:hover {
+        color: var(--red-primary);
+      }
+
+      /* Main Container */
+      .main-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .container-wide {
+        width: 100%;
+        max-width: 1024px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      .container-narrow {
+        width: 100%;
+        max-width: 672px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+
+      /* Rounded Cards */
+      .card {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-hairline);
+        border-radius: 24px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+
+      /* Start Screen */
+      .start-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        align-items: stretch;
+      }
+
+      .start-main {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .meta-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--red-primary);
+        margin-bottom: 18px;
+      }
+
+      .meta-line .sep {
+        color: #d4d4d4;
+      }
+
+      .meta-line .muted {
+        color: var(--text-muted);
+        font-weight: 500;
+      }
+
+      .start-title {
+        margin: 0 0 18px;
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.22;
+        color: #0a0a0a;
+        text-wrap: balance;
+      }
+
+      .start-title .accent {
+        display: block;
+        color: var(--red-primary);
+        margin-top: 4px;
+      }
+
+      .start-desc {
+        margin: 0 0 28px;
+        font-size: 15px;
+        color: var(--text-secondary);
+        line-height: 1.65;
+        max-width: 540px;
+      }
+
+      .spectrum-box {
+        border-top: 1px solid var(--border-hairline);
+        padding-top: 20px;
+        margin-bottom: 24px;
+      }
+
+      .spectrum-label {
+        margin: 0 0 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .spectrum-list {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+        color: #262626;
+        line-height: 1.6;
+      }
+
+      .btn-primary {
+        width: 100%;
+        min-height: 54px;
+        padding: 14px 30px;
+        border-radius: 16px;
+        background-color: var(--red-primary);
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 8px 20px -6px rgba(220, 38, 38, 0.35);
+        transition: background-color 0.15s ease, transform 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--red-hover);
+      }
+
+      .btn-primary:active {
+        transform: scale(0.98);
+      }
+
+      .btn-secondary {
+        width: 100%;
+        min-height: 48px;
+        padding: 12px 24px;
+        border-radius: 16px;
+        background-color: var(--bg-subtle);
+        color: var(--text-primary);
+        font-size: 14px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: background-color 0.15s ease, transform 0.15s ease;
+        white-space: nowrap;
+      }
+
+      .btn-secondary:hover {
+        background-color: #e4e4e7;
+      }
+
+      .btn-secondary:active {
+        transform: scale(0.98);
+      }
+
+      .hero-visual-card {
+        background-color: var(--red-primary);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        color: #ffffff;
+      }
+
+      .hero-svg-wrap {
+        background-color: #171717;
+        aspect-ratio: 4 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .hero-svg-wrap svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .hero-caption {
+        padding: 24px;
+        background-color: var(--red-primary);
+      }
+
+      .hero-caption-kicker {
+        margin: 0 0 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--red-light-text);
+      }
+
+      .hero-caption-title {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.4;
+        color: #ffffff;
+        text-wrap: balance;
+      }
+
+      /* Question Screen */
+      .progress-header {
+        margin-bottom: 20px;
+      }
+
+      .progress-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 10px;
+      }
+
+      .prev-btn {
+        min-height: 44px;
+        padding: 0 10px;
+        margin-left: -10px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        transition: color 0.15s ease, opacity 0.15s ease;
+      }
+
+      .prev-btn:hover:not(:disabled) {
+        color: var(--text-primary);
+      }
+
+      .prev-btn:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+
+      .progress-counter {
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .progress-counter .current {
+        color: var(--red-primary);
+      }
+
+      .progress-counter .slash {
+        color: #a3a3a3;
+        margin: 0 4px;
+      }
+
+      .progress-counter .total {
+        color: var(--text-muted);
+      }
+
+      .progress-track {
+        width: 100%;
+        height: 10px;
+        background-color: #e5e5e5;
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background-color: var(--red-primary);
+        border-radius: 999px;
+        transition: width 0.3s ease-out;
+      }
+
+      .question-card {
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+
+      .question-context {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--red-primary);
+        margin-bottom: 12px;
+      }
+
+      .question-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.42;
+        color: #0a0a0a;
+        text-wrap: balance;
+      }
+
+      .choices-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        text-align: left;
+        border-radius: 18px;
+        padding: 20px;
+        background: var(--bg-surface);
+        border: 2px solid var(--border-hairline);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease,
+          transform 0.15s ease;
+      }
+
+      .choice-btn:hover {
+        border-color: #f87171;
+      }
+
+      .choice-btn:active {
+        transform: scale(0.985);
+      }
+
+      .choice-btn.is-active {
+        background-color: var(--red-primary);
+        border-color: var(--red-primary);
+        color: #ffffff;
+        box-shadow: 0 8px 20px -6px rgba(220, 38, 38, 0.35);
+      }
+
+      .choice-inner {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .choice-badge {
+        width: 28px;
+        height: 28px;
+        margin-top: 2px;
+        border-radius: 10px;
+        background-color: var(--red-soft);
+        color: var(--red-primary);
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        transition: background-color 0.15s ease, color 0.15s ease;
+      }
+
+      .choice-btn:hover .choice-badge {
+        background-color: var(--red-soft-hover);
+      }
+
+      .choice-btn.is-active .choice-badge {
+        background-color: #ffffff;
+        color: var(--red-primary);
+      }
+
+      .choice-label {
+        margin: 0 0 4px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--red-primary);
+      }
+
+      .choice-btn.is-active .choice-label {
+        color: var(--red-light-text);
+      }
+
+      .choice-text {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.55;
+        color: #262626;
+      }
+
+      .choice-btn.is-active .choice-text {
+        color: #ffffff;
+      }
+
+      @keyframes choice-pop {
+        0% {
+          transform: scale(1);
+        }
+        30% {
+          transform: scale(0.96);
+        }
+        70% {
+          transform: scale(1.025);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .animate-choice-pop {
+        animation: choice-pop 280ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes fade-slide-in {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-slide-in {
+        animation: fade-slide-in 0.24s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      /* Result Screen */
+      .result-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .result-hero-card {
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .result-hero-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .result-kicker {
+        margin: 0 0 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .result-mbti {
+        margin: 0 0 8px;
+        font-size: 50px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1;
+        color: var(--red-primary);
+      }
+
+      .result-nickname {
+        margin: 0 0 18px;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 1.35;
+        color: #0a0a0a;
+        text-wrap: balance;
+      }
+
+      .result-desc {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.75;
+        color: #404040;
+      }
+
+      .result-advice {
+        margin-top: 24px;
+        padding-top: 18px;
+        border-top: 1px solid var(--border-hairline);
+      }
+
+      .result-advice-label {
+        margin: 0 0 4px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--red-primary);
+      }
+
+      .result-advice-text {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #404040;
+      }
+
+      .result-hero-visual {
+        background-color: #171717;
+        min-height: 220px;
+        aspect-ratio: 4 / 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .result-hero-visual svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .result-lower-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        align-items: start;
+      }
+
+      .result-left-col {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .section-card {
+        padding: 24px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .section-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 700;
+        color: #0a0a0a;
+      }
+
+      .section-sub {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--red-primary);
+        white-space: nowrap;
+      }
+
+      .item-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .item-row {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--border-hairline);
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+      }
+
+      .item-row:first-child {
+        padding-top: 4px;
+      }
+
+      .item-row:last-child {
+        padding-bottom: 4px;
+        border-bottom: none;
+      }
+
+      .item-num {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--red-primary);
+        padding-top: 2px;
+        flex-shrink: 0;
+      }
+
+      .item-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .item-title-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 2px 8px;
+        margin-bottom: 4px;
+      }
+
+      .item-title {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 700;
+        color: #0a0a0a;
+      }
+
+      .item-meta {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-muted);
+      }
+
+      .item-desc {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--text-secondary);
+      }
+
+      /* Axis Breakdown */
+      .axis-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .axis-labels {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        gap: 8px;
+      }
+
+      .axis-labels .win {
+        color: var(--red-primary);
+        font-weight: 700;
+      }
+
+      .axis-labels .lose {
+        color: var(--text-muted);
+      }
+
+      .axis-labels .pct {
+        color: var(--text-primary);
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      .axis-bar {
+        width: 100%;
+        height: 8px;
+        background-color: #f4f4f5;
+        border-radius: 999px;
+        overflow: hidden;
+        display: flex;
+      }
+
+      .axis-seg-win {
+        background-color: var(--red-primary);
+      }
+
+      .axis-seg-lose {
+        background-color: #d4d4d4;
+      }
+
+      .action-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* Responsive Desktop Expansion */
+      @media (min-width: 640px) {
+        .top-bar {
+          padding: 0 24px;
+        }
+        .brand-btn {
+          font-size: 16px;
+        }
+        .container-wide,
+        .container-narrow {
+          padding: 32px 24px;
+        }
+        .start-main {
+          padding: 40px;
+        }
+        .start-title {
+          font-size: 38px;
+        }
+        .btn-primary.start-cta {
+          width: auto;
+        }
+        .question-card {
+          padding: 32px;
+        }
+        .question-title {
+          font-size: 24px;
+        }
+        .choice-btn {
+          padding: 24px;
+        }
+        .result-hero-body {
+          padding: 40px;
+        }
+        .result-mbti {
+          font-size: 60px;
+        }
+        .result-nickname {
+          font-size: 24px;
+        }
+        .section-card {
+          padding: 32px;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .start-grid {
+          grid-template-columns: 7fr 5fr;
+        }
+        .hero-svg-wrap {
+          aspect-ratio: auto;
+          flex: 1;
+        }
+        .result-hero-card {
+          grid-template-columns: 7fr 5fr;
+        }
+        .result-hero-visual {
+          aspect-ratio: auto;
+        }
+        .result-lower-grid {
+          grid-template-columns: 7fr 5fr;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .animate-choice-pop,
+        .fade-slide-in {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="top-bar">
+      <button type="button" id="brandHomeBtn" class="brand-btn">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>화공과 직무 유형 테스트</span>
+      </button>
+      <div id="headerRight"></div>
+    </header>
+
+    <main id="app" class="main-wrap"></main>
+
+    <script>
+      const QUIZ_QUESTIONS = [
+        {
+          id: 1,
+          context: '전공 시험 · 공부 방법',
+          axis: 'EI',
+          question: '화공양론과 전달현상 시험 D-3, 가장 집중이 잘 되는 공부 루틴은?',
+          options: [
+            {
+              id: 'A',
+              label: '스터디룸 토론형',
+              text: '동기들과 스터디룸을 잡아 서로 막히는 풀이 과정을 소리 내어 설명하고 질문하며 정리한다.',
+              trait: 'E',
+            },
+            {
+              id: 'B',
+              label: '열람실 몰입형',
+              text: '열람실 지정석에 앉아 노이즈 캔슬링을 켜고 교수님 필기와 교재를 혼자 처음부터 끝까지 파고든다.',
+              trait: 'I',
+            },
+          ],
+        },
+        {
+          id: 2,
+          context: '전공 원서 · 학습 전략',
+          axis: 'SN',
+          question: '두꺼운 영문 열역학·반응공학 교재를 처음 펼쳤을 때 나의 공부 출발점은?',
+          options: [
+            {
+              id: 'A',
+              label: '예제·기출 패턴 우선',
+              text: '핵심 공식과 예제 풀이부터 빠르게 훑어보며 시험과 문제에 실제로 어떻게 적용되는지 감을 잡는다.',
+              trait: 'S',
+            },
+            {
+              id: 'B',
+              label: '원리·유도 흐름 우선',
+              text: '이 식이 어떤 물리적 가정을 거쳐 유도되었는지 전체 시스템의 맥락을 납득해야 다음 장으로 넘어간다.',
+              trait: 'N',
+            },
+          ],
+        },
+        {
+          id: 3,
+          context: '캡스톤 디자인 · 조별과제',
+          axis: 'TF',
+          question: '발표 전날 밤, 팀원이 담당한 물질수지 엑셀에서 단위 환산 오류를 발견했다면?',
+          options: [
+            {
+              id: 'A',
+              label: '즉각적인 오류 교정',
+              text: '"여기 단위가 kg/h가 아니라 kmol/h로 들어가서 전체 수지가 틀어졌어. 바로 수식부터 고치자."',
+              trait: 'T',
+            },
+            {
+              id: 'B',
+              label: '배려 기반 협업 수정',
+              text: '"늦게까지 수고 많았어. 근데 여기 단위 부분만 살짝 맞추면 완벽할 것 같은데 같이 다시 볼까?"',
+              trait: 'F',
+            },
+          ],
+        },
+        {
+          id: 4,
+          context: '화공기초실험 · 레포트 마감',
+          axis: 'JP',
+          question: '매주 돌아오는 실험 결과 레포트, 마감일까지 나의 실제 작업 패턴은?',
+          options: [
+            {
+              id: 'A',
+              label: '사전 분할 완수형',
+              text: '실험 직후 바로 그래프와 목차 틀을 잡아두고, 마감 하루 전 저녁에는 이미 참고문헌과 오탈자 검수를 끝낸다.',
+              trait: 'J',
+            },
+            {
+              id: 'B',
+              label: '마감 직전 고몰입형',
+              text: '측정 데이터와 선행 논문만 폴더에 모아두었다가, 마감 전날 밤 집중력이 최고조에 달했을 때 한 번에 작성한다.',
+              trait: 'P',
+            },
+          ],
+        },
+        {
+          id: 5,
+          context: '학과 동아리 · 학회 행사',
+          axis: 'EI',
+          question: '전공 동아리나 학생회 행사를 기획할 때 자연스럽게 내가 맡게 되는 역할은?',
+          options: [
+            {
+              id: 'A',
+              label: '대외 소통·현장 진행',
+              text: '선후배 및 연사 섭외 연락을 도맡고, 행사 당일 현장 분위기를 이끌며 참가자들과 활발히 소통한다.',
+              trait: 'E',
+            },
+            {
+              id: 'B',
+              label: '기획안·운영 설계',
+              text: '타임테이블, 예산안, 대관 서류, 홍보 문구를 빈틈없이 정리해 뒤에서 행사가 흔들리지 않게 받쳐준다.',
+              trait: 'I',
+            },
+          ],
+        },
+        {
+          id: 6,
+          context: '전공 실험 · 트러블슈팅',
+          axis: 'SN',
+          question: '반응기 온도를 정확히 맞췄는데 이론값과 전혀 다른 그래프가 찍혔을 때 나는?',
+          options: [
+            {
+              id: 'A',
+              label: '장치·절차 정밀 점검',
+              text: '밸브 체결 상태, 시약 농도 계량 오차, 센서 영점 등 눈앞의 실험 조건과 절차를 하나씩 역추적한다.',
+              trait: 'S',
+            },
+            {
+              id: 'B',
+              label: '가설 확장·메커니즘 추론',
+              text: '예상치 못한 부반응이나 상전이 구간에 진입했을 가능성을 떠올리며 새로운 현상의 원인을 추론한다.',
+              trait: 'N',
+            },
+          ],
+        },
+        {
+          id: 7,
+          context: '조별과제 · 의사결정',
+          axis: 'TF',
+          question: '팀플 주제 선정 회의가 1시간째 겉돌며 결론이 나지 않을 때 나의 해결책은?',
+          options: [
+            {
+              id: 'A',
+              label: '기준표 기반 합리적 결정',
+              text: '구현 가능성, 데이터 확보 난이도, 배점 비중을 기준표로 정리해 점수가 가장 높은 안으로 확정하자고 제안한다.',
+              trait: 'T',
+            },
+            {
+              id: 'B',
+              label: '팀원 의견·컨디션 조율',
+              text: '각자 부담되는 지점과 진짜 해보고 싶은 파트를 먼저 듣고, 모두가 납득할 수 있는 절충안을 찾는다.',
+              trait: 'F',
+            },
+          ],
+        },
+        {
+          id: 8,
+          context: '기말고사 · 시간 관리',
+          axis: 'JP',
+          question: '전공 4과목이 연달아 몰린 기말고사 주간, 나의 공부 계획표는 어떤 모습일까?',
+          options: [
+            {
+              id: 'A',
+              label: '주차·일별 체크리스트',
+              text: '시험 2주 전부터 날짜별·단원별 분량을 쪼개 플래너에 적고, 매일 목표량을 지워나가며 안정감을 얻는다.',
+              trait: 'J',
+            },
+            {
+              id: 'B',
+              label: '유연한 우선순위 전환',
+              text: '시험 일정만 머릿속에 둔 채 그날 컨디션과 집중도에 따라 가장 잘 풀리는 과목부터 몰아서 정복한다.',
+              trait: 'P',
+            },
+          ],
+        },
+        {
+          id: 9,
+          context: '4학년 진로 탐색 · 정보 수집',
+          axis: 'EI',
+          question: '졸업 후 직무 방향을 구체화할 때, 나에게 훨씬 도움이 되는 탐색 방식은?',
+          options: [
+            {
+              id: 'A',
+              label: '선배·현직자 커피챗',
+              text: '졸업한 학과 선배나 현직자 멘토링에 직접 연락해 실제 하루 일과와 현장 분위기를 생생하게 물어본다.',
+              trait: 'E',
+            },
+            {
+              id: 'B',
+              label: '직무기술서·산업 리포트 분석',
+              text: '관심 기업의 채용 직무기술서(JD), 사업보고서, 산업 리포트를 조용히 비교 분석하며 나만의 기준표를 만든다.',
+              trait: 'I',
+            },
+          ],
+        },
+        {
+          id: 10,
+          context: '캡스톤 · 프로젝트 주제 선택',
+          axis: 'SN',
+          question: '두 가지 공정설계 프로젝트 중 하나를 골라야 한다면 더 끌리는 과제는?',
+          options: [
+            {
+              id: 'A',
+              label: '실제 공정 효율 개선',
+              text: '현재 가동 중인 배터리·석유화학 공정의 실제 운전 데이터를 분석해 에너지 비용과 수율을 구체적으로 개선하는 과제.',
+              trait: 'S',
+            },
+            {
+              id: 'B',
+              label: '차세대 신기술 모델링',
+              text: '아직 상용화 전인 친환경 촉매나 신규 바이오 공정의 미래 시나리오를 백지상태에서 새롭게 설계해 보는 과제.',
+              trait: 'N',
+            },
+          ],
+        },
+        {
+          id: 11,
+          context: '학과 생활 · 전공 질문 답변',
+          axis: 'TF',
+          question: '시험 직전, 후배가 "이 단위조작 문제가 도저히 이해가 안 돼요"라고 물었을 때 나는?',
+          options: [
+            {
+              id: 'A',
+              label: '논리적 단계별 증명',
+              text: '문제의 경계 조건과 가정(Assumption)부터 짚어주고, 수식이 다음 단계로 넘어가는 인과관계를 명쾌히 설명한다.',
+              trait: 'T',
+            },
+            {
+              id: 'B',
+              label: '공감과 비유 중심 설명',
+              text: '"나도 3학년 때 여기서 똑같이 막혔어"라며 먼저 긴장을 풀어주고, 일상적인 비유를 들어 이해될 때까지 짚어준다.',
+              trait: 'F',
+            },
+          ],
+        },
+        {
+          id: 12,
+          context: '학술제 · 돌발 상황 대처',
+          axis: 'JP',
+          question: '동아리 학술제 발표 직전, 시연용 공정 시뮬레이션 파일이 갑자기 열리지 않는다면?',
+          options: [
+            {
+              id: 'A',
+              label: '사전 백업 플랜 B 가동',
+              text: '혹시 몰라 미리 캡처해 둔 결과 화면과 PDF 백업본을 즉시 띄워 정해진 발표 시나리오대로 침착하게 진행한다.',
+              trait: 'J',
+            },
+            {
+              id: 'B',
+              label: '현장 즉흥 진단 및 돌파',
+              text: '당황하지 않고 현장에서 오류 원인을 빠르게 우회하거나, 핵심 그래프만 즉석에서 다시 그리며 유연하게 돌파한다.',
+              trait: 'P',
+            },
+          ],
+        },
+      ];
+
+      function getRoleSvg(theme) {
+        if (theme === 'processDesign') {
+          return `
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="300" fill="#FAF8F8"/>
+              <rect x="0" y="0" width="400" height="300" fill="none" stroke="#E5E5E5" stroke-width="2"/>
+              <g stroke="#E5E5E5" stroke-width="1">
+                <line x1="0" y1="60" x2="400" y2="60"/>
+                <line x1="0" y1="120" x2="400" y2="120"/>
+                <line x1="0" y1="180" x2="400" y2="180"/>
+                <line x1="0" y1="240" x2="400" y2="240"/>
+                <line x1="80" y1="0" x2="80" y2="300"/>
+                <line x1="160" y1="0" x2="160" y2="300"/>
+                <line x1="240" y1="0" x2="240" y2="300"/>
+                <line x1="320" y1="0" x2="320" y2="300"/>
+              </g>
+              <path d="M70 150 H130 V80 H190" fill="none" stroke="#141414" stroke-width="3"/>
+              <path d="M230 70 H290 V135 H335" fill="none" stroke="#DC2626" stroke-width="3"/>
+              <path d="M230 220 H300 V190" fill="none" stroke="#141414" stroke-width="3"/>
+              <rect x="180" y="55" width="52" height="185" rx="26" fill="#FFFFFF" stroke="#141414" stroke-width="3"/>
+              <line x1="180" y1="100" x2="232" y2="100" stroke="#141414" stroke-width="2"/>
+              <line x1="180" y1="130" x2="232" y2="130" stroke="#141414" stroke-width="2"/>
+              <line x1="180" y1="160" x2="232" y2="160" stroke="#141414" stroke-width="2"/>
+              <line x1="180" y1="190" x2="232" y2="190" stroke="#141414" stroke-width="2"/>
+              <path d="M182 210 H230 V214 A24 24 0 0 1 182 214 Z" fill="#DC2626"/>
+              <circle cx="290" cy="95" r="18" fill="#DC2626" stroke="#141414" stroke-width="2.5"/>
+              <line x1="276" y1="109" x2="304" y2="81" stroke="#FFFFFF" stroke-width="2.5"/>
+              <circle cx="105" cy="215" r="20" fill="#FFFFFF" stroke="#141414" stroke-width="3"/>
+              <polygon points="99,205 117,215 99,225" fill="#DC2626"/>
+              <rect x="275" y="160" width="60" height="32" rx="8" fill="#141414"/>
+              <circle cx="290" cy="176" r="5" fill="#DC2626"/>
+              <line x1="302" y1="176" x2="323" y2="176" stroke="#FFFFFF" stroke-width="2.5"/>
+            </svg>`;
+        }
+        if (theme === 'processTech') {
+          return `
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="300" fill="#141414"/>
+              <rect x="44" y="42" width="312" height="160" rx="16" fill="#FFFFFF"/>
+              <rect x="64" y="64" width="128" height="54" rx="8" fill="#FAF8F8" stroke="#E5E5E5" stroke-width="2"/>
+              <path d="M78 104 A24 24 0 0 1 122 104" fill="none" stroke="#141414" stroke-width="4"/>
+              <line x1="100" y1="104" x2="112" y2="84" stroke="#DC2626" stroke-width="3" stroke-linecap="round"/>
+              <path d="M136 104 A20 20 0 0 1 174 104" fill="none" stroke="#DC2626" stroke-width="4"/>
+              <rect x="208" y="64" width="128" height="116" rx="8" fill="#FAF8F8" stroke="#E5E5E5" stroke-width="2"/>
+              <polyline points="222,154 248,132 272,140 298,104 322,88" fill="none" stroke="#DC2626" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="298" cy="104" r="5" fill="#141414"/>
+              <circle cx="322" cy="88" r="5" fill="#DC2626"/>
+              <rect x="64" y="132" width="128" height="48" rx="8" fill="#141414"/>
+              <rect x="78" y="146" width="58" height="8" rx="4" fill="#DC2626"/>
+              <rect x="78" y="160" width="96" height="6" rx="3" fill="#525252"/>
+              <path d="M40 244 H360" stroke="#E5E5E5" stroke-width="10" stroke-linecap="round"/>
+              <circle cx="130" cy="244" r="14" fill="#DC2626" stroke="#FFFFFF" stroke-width="3"/>
+              <circle cx="215" cy="244" r="14" fill="#FFFFFF" stroke="#DC2626" stroke-width="4"/>
+              <circle cx="295" cy="244" r="14" fill="#DC2626" stroke="#FFFFFF" stroke-width="3"/>
+            </svg>`;
+        }
+        if (theme === 'materialsRd') {
+          return `
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="300" fill="#262626"/>
+              <g fill="none" stroke="#525252" stroke-width="2.5">
+                <polygon points="240,65 268,81 268,113 240,129 212,113 212,81"/>
+                <polygon points="296,65 324,81 324,113 296,129 268,113 268,81"/>
+                <polygon points="268,113 296,129 296,161 268,177 240,161 240,129" stroke="#DC2626" stroke-width="3"/>
+              </g>
+              <circle cx="268" cy="113" r="5" fill="#FAF8F8"/>
+              <circle cx="240" cy="129" r="5" fill="#DC2626"/>
+              <circle cx="296" cy="129" r="5" fill="#FAF8F8"/>
+              <rect x="40" y="232" width="320" height="10" rx="5" fill="#FAF8F8"/>
+              <path d="M110 85 H140 V125 L168 190 A16 16 0 0 1 153 212 H97 A16 16 0 0 1 82 190 L110 125 Z" fill="#FAF8F8" stroke="#141414" stroke-width="3"/>
+              <path d="M90 176 H160 L166 192 A14 14 0 0 1 153 209 H97 A14 14 0 0 1 84 192 Z" fill="#DC2626"/>
+              <rect x="200" y="154" width="38" height="78" rx="6" fill="#FAF8F8" stroke="#141414" stroke-width="3"/>
+              <rect x="205" y="188" width="28" height="39" rx="3" fill="#DC2626"/>
+              <rect x="266" y="170" width="22" height="62" rx="11" fill="#FAF8F8"/>
+              <rect x="300" y="170" width="22" height="62" rx="11" fill="#FAF8F8"/>
+              <rect x="303" y="196" width="16" height="33" rx="8" fill="#DC2626"/>
+            </svg>`;
+        }
+        if (theme === 'biopharma') {
+          return `
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="300" fill="#FAF8F8"/>
+              <path d="M60 68 C110 24, 150 112, 200 68 C250 24, 290 112, 340 68" fill="none" stroke="#DC2626" stroke-width="5" stroke-linecap="round"/>
+              <path d="M60 108 C110 152, 150 64, 200 108 C250 152, 290 64, 340 108" fill="none" stroke="#141414" stroke-width="5" stroke-linecap="round"/>
+              <line x1="95" y1="60" x2="95" y2="116" stroke="#141414" stroke-width="3"/>
+              <line x1="165" y1="78" x2="165" y2="98" stroke="#141414" stroke-width="3"/>
+              <line x1="235" y1="60" x2="235" y2="116" stroke="#141414" stroke-width="3"/>
+              <line x1="305" y1="78" x2="305" y2="98" stroke="#141414" stroke-width="3"/>
+              <rect x="136" y="142" width="128" height="114" rx="18" fill="#FFFFFF" stroke="#141414" stroke-width="3.5"/>
+              <rect x="142" y="194" width="116" height="56" rx="12" fill="#FEE2E2"/>
+              <line x1="200" y1="126" x2="200" y2="232" stroke="#141414" stroke-width="4"/>
+              <line x1="176" y1="226" x2="224" y2="226" stroke="#DC2626" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="172" cy="212" r="6" fill="#DC2626"/>
+              <circle cx="222" cy="204" r="4" fill="#DC2626"/>
+              <circle cx="188" cy="238" r="4" fill="#141414"/>
+              <rect x="52" y="198" width="52" height="58" rx="8" fill="#141414"/>
+              <circle cx="78" cy="220" r="10" fill="#DC2626"/>
+            </svg>`;
+        }
+        if (theme === 'qaQc') {
+          return `
+            <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="300" fill="#DC2626"/>
+              <rect x="34" y="42" width="206" height="148" rx="16" fill="#FFFFFF" stroke="#141414" stroke-width="3"/>
+              <line x1="56" y1="162" x2="218" y2="162" stroke="#141414" stroke-width="2.5"/>
+              <line x1="56" y1="70" x2="56" y2="162" stroke="#141414" stroke-width="2.5"/>
+              <path d="M62 162 L76 118 L90 162 L114 78 L138 162 L156 102 L176 162 L194 128 L210 162" fill="#FEE2E2" stroke="#DC2626" stroke-width="3" stroke-linejoin="round"/>
+              <rect x="256" y="42" width="110" height="214" rx="16" fill="#FAF8F8" stroke="#141414" stroke-width="3"/>
+              <rect x="286" y="32" width="50" height="18" rx="6" fill="#141414"/>
+              <rect x="274" y="74" width="18" height="18" rx="4" fill="#DC2626"/>
+              <polyline points="278,83 282,87 289,78" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="302" y="79" width="46" height="8" rx="4" fill="#141414"/>
+              <rect x="274" y="110" width="18" height="18" rx="4" fill="#DC2626"/>
+              <polyline points="278,119 282,123 289,114" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="302" y="115" width="46" height="8" rx="4" fill="#141414"/>
+              <rect x="274" y="146" width="18" height="18" rx="4" fill="none" stroke="#141414" stroke-width="2.5"/>
+              <rect x="302" y="151" width="46" height="8" rx="4" fill="#A3A3A3"/>
+              <rect x="34" y="206" width="206" height="50" rx="14" fill="#141414"/>
+              <rect x="54" y="216" width="14" height="30" rx="7" fill="#FFFFFF"/>
+              <rect x="82" y="216" width="14" height="30" rx="7" fill="#DC2626"/>
+              <rect x="110" y="216" width="14" height="30" rx="7" fill="#FFFFFF"/>
+              <rect x="138" y="216" width="14" height="30" rx="7" fill="#DC2626"/>
+              <rect x="166" y="216" width="14" height="30" rx="7" fill="#FFFFFF"/>
+              <rect x="194" y="216" width="14" height="30" rx="7" fill="#DC2626"/>
+            </svg>`;
+        }
+        return `
+          <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="400" height="300" fill="#FAF8F8"/>
+            <rect x="44" y="42" width="312" height="172" rx="16" fill="#FFFFFF" stroke="#141414" stroke-width="3"/>
+            <path d="M74 176 L142 150 L212 158 L314 88" fill="none" stroke="#DC2626" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <polygon points="324,81 302,83 314,102" fill="#DC2626"/>
+            <circle cx="142" cy="150" r="7" fill="#141414"/>
+            <circle cx="212" cy="158" r="7" fill="#141414"/>
+            <rect x="74" y="76" width="74" height="36" rx="8" fill="#141414"/>
+            <rect x="86" y="88" width="50" height="10" rx="5" fill="#DC2626"/>
+            <rect x="44" y="232" width="312" height="24" rx="12" fill="#141414"/>
+            <circle cx="120" cy="244" r="6" fill="#DC2626"/>
+            <circle cx="200" cy="244" r="6" fill="#FFFFFF"/>
+            <circle cx="280" cy="244" r="6" fill="#DC2626"/>
+          </svg>`;
+      }
+
+      const MBTI_PROFILES = {
+        ISTJ: {
+          type: 'ISTJ',
+          nickname: '오차 없는 물질수지의 수호자',
+          description:
+            '실험 데이터의 유효숫자 하나, 레포트의 참고문헌 양식까지 놓치지 않는 원칙주의 엔지니어입니다. 시험 2주 전부터 계획표를 쪼개어 성실히 완수하고, 조별과제에서도 팀원들이 믿고 맡기는 데이터 검수 에이스 역할을 도맡습니다. 검증된 표준 절차(SOP)를 정확히 지키며 장기적으로 신뢰도 높은 결과를 만들어내는 데 강점이 있습니다.',
+          careers: [
+            { title: '품질관리 · 품질보증(QA/QC) 엔지니어', sector: '제약 · 바이오 · 반도체 · 화장품', reason: '기준 규격(GMP/ISO)을 깐깐하게 준수하고 분석 데이터의 무결성을 검증하는 능력이 빛납니다.' },
+            { title: '인허가(RA) · 밸리데이션 스페셜리스트', sector: '바이오의약품 · 정밀화학', reason: '체계적인 문서화와 규정 해석, 공정 적격성 평가에서 높은 안정감을 발휘합니다.' },
+            { title: '정밀화학 분석연구원', sector: '석유화학 · 이차전지 소재', reason: 'HPLC·GC 등 기기분석 결과를 정밀하게 판독하고 반복 재현성을 확보하는 데 탁월합니다.' },
+          ],
+          certifications: [
+            { name: '품질경영기사', targetCareer: '품질관리 · 품질보증(QA/QC) 엔지니어', reason: '통계적 공정관리(SPC)와 품질 시스템 기준을 증명하는 품질 직무 핵심 자격증입니다.' },
+            { name: '화학분석기사', targetCareer: '정밀화학 분석연구원', reason: '기기분석·습식분석 실무 역량을 객관적으로 인증받아 연구·품질 분야에 유리합니다.' },
+            { name: '생물공학기사', targetCareer: '인허가(RA) · 밸리데이션 스페셜리스트', reason: '제약·바이오 GMP 밸리데이션 및 생물공정 기초 지식을 보증해 서류 경쟁력을 높입니다.' },
+          ],
+          studyAdvice: '품질·분석 직무는 실험 과목의 오차 원인 분석 경험과 데이터 검증 사례를 자소서에 구체적으로 적는 것이 유리합니다.',
+          theme: 'qaQc',
+        },
+        ISFJ: {
+          type: 'ISFJ',
+          nickname: '실험실과 팀을 지키는 묵묵한 조율자',
+          description:
+            '조별과제에서 말없이 빈틈을 메우고, 시약 재고와 안전 수칙부터 발표 백업 파일까지 세심하게 챙기는 든든한 실무형 인재입니다. 혼자 조용히 반복 복습하며 개념을 다지는 데 익숙하면서도, 팀원들의 컨디션과 진행 속도를 세심히 살핍니다. 사람과 품질 모두를 안정적으로 지켜내야 하는 현장에서 진가를 발휘합니다.',
+          careers: [
+            { title: '바이오의약품 품질보증(QA) 담당자', sector: '바이오 · 제약 제조', reason: '제조 기록서 검토와 부서 간 품질 협업을 차분하고 빈틈없이 이끌어갑니다.' },
+            { title: '화장품 · 생활용품 제형 연구원', sector: '코스메틱 · 소비재 R&D', reason: '수많은 배합 비율 테스트를 성실히 기록하고 사용자 관점의 안정성을 완성합니다.' },
+            { title: '환경안전보건(EHS) 엔지니어', sector: '플랜트 · 반도체 · 화학 제조', reason: '현장 작업자의 안전과 화학물질 관리 기준을 책임감 있게 지키는 직무와 잘 맞습니다.' },
+          ],
+          certifications: [
+            { name: '품질경영기사', targetCareer: '바이오의약품 품질보증(QA) 담당자', reason: 'GMP 품질 문서 체계와 공정 품질 보증 역량을 갖추었음을 보여줄 수 있습니다.' },
+            { name: '맞춤형화장품조제관리사', targetCareer: '화장품 · 생활용품 제형 연구원', reason: '화장품 원료 배합과 안전성 기준에 대한 실무 이해도를 직접 어필할 수 있습니다.' },
+            { name: '산업안전기사 · 위험물산업기사', targetCareer: '환경안전보건(EHS) 엔지니어', reason: '화학물질 취급 사업장의 법적 선임 요건 및 현장 안전관리 필수 스펙입니다.' },
+          ],
+          studyAdvice: '실험 안전 관리, 조별과제 일정 조율, 품질 기준 개선 경험을 "안정적인 운영 성과"로 연결해 보세요.',
+          theme: 'biopharma',
+        },
+        INFJ: {
+          type: 'INFJ',
+          nickname: '지속가능한 공정의 맥락을 읽는 통찰가',
+          description:
+            '수식 한 줄을 외우기보다 그 기술이 산업과 사회에 어떤 가치를 만드는지 본질적인 의미를 먼저 고민하는 타입입니다. 혼자 깊이 사색하며 원서를 정리하는 집중력이 뛰어나고, 팀플에서는 갈등을 부드럽게 중재하며 방향성을 제시합니다. 장기적인 비전과 윤리적 가치가 담긴 기술 기획·바이오 분야에서 강한 몰입을 보입니다.',
+          careers: [
+            { title: 'ESG · 친환경 공정 기획자', sector: '에너지 · 화학 · 탄소중립', reason: '탄소 저감 및 순환경제 공정의 장기 로드맵을 설계하고 의미 있는 변화를 주도합니다.' },
+            { title: '바이오 R&D 연구기획 스페셜리스트', sector: '제약 · 바이오텍', reason: '기술 트렌드와 연구 파이프라인의 맥락을 읽어 중장기 연구 전략을 세우는 데 강합니다.' },
+            { title: '신소재 · 배터리 기술전략 담당자', sector: '이차전지 · 미래소재', reason: '산업 변화의 흐름을 통찰력 있게 정리해 차세대 소재 개발 우선순위를 도출합니다.' },
+          ],
+          certifications: [
+            { name: '대기환경기사 · 수질환경기사', targetCareer: 'ESG · 친환경 공정 기획자', reason: '친환경 공정 전환과 배출 저감 규제 대응의 공학적 근거를 입증하는 데 강점이 있습니다.' },
+            { name: '생물공학기사', targetCareer: '바이오 R&D 연구기획 스페셜리스트', reason: '바이오의약·배양 공정 전반에 대한 전공 전문성을 탄탄히 뒷받침합니다.' },
+            { name: '데이터분석준전문가(ADsP)', targetCareer: '신소재 · 배터리 기술전략 담당자', reason: '기술 시장 지표와 연구 데이터를 정량적으로 분석해 전략을 도출하는 역량을 보완합니다.' },
+          ],
+          studyAdvice: '전공 지식에 ESG·친환경 공정 이슈나 산업 리포트 분석을 결합한 포트폴리오가 강력한 무기가 됩니다.',
+          theme: 'biopharma',
+        },
+        INTJ: {
+          type: 'INTJ',
+          nickname: '원리부터 구조를 설계하는 마스터 플래너',
+          description:
+            '전공 개념의 근본 원리와 전체 공정 흐름을 머릿속에 구조화해야 직성이 풀리는 전략가입니다. 조별과제에서도 전체 목차와 로직이 한 치의 모순 없이 맞물리도록 설계도를 먼저 그립니다. 독립적인 탐구심과 장기적인 계획성을 바탕으로 고난도 공정설계나 선행 기술 개발에서 압도적인 역량을 발휘합니다.',
+          careers: [
+            { title: '공정설계(Process Design) 엔지니어', sector: 'EPC 플랜트 · 정유 · 석유화학', reason: 'PFD/P&ID 구성과 열·물질수지 최적화 등 거대한 시스템 전체를 논리적으로 설계합니다.' },
+            { title: '배터리 · 반도체 선행공정 개발자', sector: '이차전지 · 반도체 제조', reason: '복합적인 물리·화학 변수를 구조화해 차세대 공정 아키텍처를 완성합니다.' },
+            { title: '화학 공정 시뮬레이션 · R&D 연구원', sector: '첨단소재 · 에너지 연구소', reason: 'Aspen 등 모델링 툴을 활용해 실험 전 최적 공정 조건을 이론적으로 도출합니다.' },
+          ],
+          certifications: [
+            { name: '화공기사', targetCareer: '공정설계(Process Design) 엔지니어', reason: '열역학·단위조작·공정제어 등 플랜트 공정설계의 기본기를 가장 확실히 증명합니다.' },
+            { name: '가스기사 · 위험물산업기사', targetCareer: '배터리 · 반도체 선행공정 개발자', reason: '고압가스·특수화학물질을 다루는 선행 공정 설계에서 안전·규정 이해도를 높여줍니다.' },
+            { name: '데이터분석준전문가(ADsP) · SQLD', targetCareer: '화학 공정 시뮬레이션 · R&D 연구원', reason: '공정 시뮬레이션 데이터 해석과 모델 최적화 역량을 수치로 뒷받침합니다.' },
+          ],
+          studyAdvice: 'Aspen Plus 시뮬레이션이나 캡스톤 공정설계 프로젝트에서 "가정 설정과 최적화 근거"를 명확히 정리해 두세요.',
+          theme: 'processDesign',
+        },
+        ISTP: {
+          type: 'ISTP',
+          nickname: '현장 트러블슈팅의 냉철한 해결사',
+          description:
+            '장황한 이론 설명보다 직접 장비를 만지고 문제를 해결하면서 빠르게 원리를 체득하는 실전형 엔지니어입니다. 실험 중 예상치 못한 오류가 터져도 당황하지 않고 밸브와 센서부터 침착하게 점검해 원인을 찾아냅니다. 불필요한 회의보다 명확한 데이터와 실물 장치를 다루는 기술 현장에서 최고의 집중력을 보여줍니다.',
+          careers: [
+            { title: '반도체 · 배터리 공정기술 엔지니어', sector: '반도체 파운드리 · 이차전지', reason: '양산 설비의 이상 원인을 빠르게 진단하고 공정 조건을 튜닝해 수율을 끌어올립니다.' },
+            { title: '화학 플랜트 생산 · 설비 기술직', sector: '석유화학 · 정유 · 소재 공장', reason: '실제 반응기·증류탑 운전 트러블을 현장에서 즉각 해결하는 능력이 뛰어납니다.' },
+            { title: '분석기기 어플리케이션 엔지니어', sector: '과학기기 · 정밀측정 장비', reason: '장비 메커니즘을 빠르게 파악하고 고객사 현장의 기술 이슈를 명쾌하게 해결합니다.' },
+          ],
+          certifications: [
+            { name: '화공기사', targetCareer: '반도체 · 배터리 공정기술 엔지니어', reason: '단위공정과 공정제어 이론을 바탕으로 현장 수율 문제를 해결할 기초 자격을 증명합니다.' },
+            { name: '위험물산업기사 · 산업안전기사', targetCareer: '화학 플랜트 생산 · 설비 기술직', reason: '공장 현장 설비 및 화학물질 취급 라인에서 필수적으로 우대받는 실무 자격증입니다.' },
+            { name: '화학분석기사', targetCareer: '분석기기 어플리케이션 엔지니어', reason: '정밀 측정·분석 장비의 작동 원리와 데이터 해석 신뢰도를 입증하는 데 유리합니다.' },
+          ],
+          studyAdvice: '단위조작·화공실험에서 기기 오작동이나 비정상 데이터를 직접 해결했던 트러블슈팅 사례를 꼭 정리해 두세요.',
+          theme: 'processTech',
+        },
+        ISFP: {
+          type: 'ISFP',
+          nickname: '감각적 디테일로 완성하는 레시피 장인',
+          description:
+            '자신만의 페이스대로 조용히 실험하고, 미세한 색·점도·물성 차이를 섬세하게 포착해 내는 연구자 기질을 지녔습니다. 딱딱한 숫자 나열보다 실제 손으로 만지고 결과물이 눈앞에 구현되는 실험 수업에서 흥미를 느낍니다. 정해진 틀에 얽매이기보다 감각과 디테일이 결합된 소재·제형 개발 분야에서 큰 만족감을 얻습니다.',
+          careers: [
+            { title: '화장품 · 향료 제형 개발 연구원', sector: '뷰티 · 퍼스널케어 R&D', reason: '유화 안정성과 사용감 같은 미세한 물성 디테일을 감각적으로 조율해 냅니다.' },
+            { title: '식품 · 바이오 배양 공정 연구원', sector: '기능성 식품 · 화이트바이오', reason: '미생물 배양과 발효 조건을 세밀하게 관찰하며 안정적인 품질을 구현합니다.' },
+            { title: '고분자 · 기능성 소재 물성 분석가', sector: '고분자 · 필름 · 디스플레이 소재', reason: '차분한 집중력으로 샘플 물성 변화를 세밀하게 측정하고 레시피를 개선합니다.' },
+          ],
+          certifications: [
+            { name: '맞춤형화장품조제관리사', targetCareer: '화장품 · 향료 제형 개발 연구원', reason: '제형 원료 이해도와 화장품법·품질 기준 실무 지식을 공식적으로 인증받습니다.' },
+            { name: '생물공학기사', targetCareer: '식품 · 바이오 배양 공정 연구원', reason: '발효·배양 공학 및 생물반응기 운용 역량을 객관적으로 증명할 수 있습니다.' },
+            { name: '화학분석기사', targetCareer: '고분자 · 기능성 소재 물성 분석가', reason: '시료 전처리와 기기분석을 통한 정밀 물성 평가 역량을 보여줍니다.' },
+          ],
+          studyAdvice: '학부연구생이나 캡스톤에서 "배합 비율·공정 조건 변화에 따른 물성 개선 결과"를 시각 자료와 함께 정리해 보세요.',
+          theme: 'materialsRd',
+        },
+        INFP: {
+          type: 'INFP',
+          nickname: '가치 있는 기술에 몰입하는 연구 탐구자',
+          description:
+            '단순히 점수를 따기 위한 공부보다, 내가 진심으로 흥미와 의미를 느끼는 주제에 깊게 빠져드는 몰입형 탐구자입니다. 팀플에서도 팀원 한 명 한 명의 의견을 소중히 여기며 따뜻한 분위기를 만듭니다. 친환경 바이오, 헬스케어, 지속가능 소재처럼 사람과 환경에 긍정적 영향을 주는 분야에서 꾸준한 저력을 발휘합니다.',
+          careers: [
+            { title: '친환경 바이오소재 R&D 연구원', sector: '생분해성 플라스틱 · 그린케미칼', reason: '환경 문제를 해결한다는 분명한 소명의식 속에서 깊이 있는 연구에 몰입합니다.' },
+            { title: '제약 · 바이오 학술 마케터(MSL/PM)', sector: '제약 · 헬스케어', reason: '전공 기반의 과학적 이해력과 공감 가는 스토리텔링 역량을 동시에 활용합니다.' },
+            { title: '지속가능성 · LCA(전과정평가) 애널리스트', sector: '화학 · 컨설팅 · ESG', reason: '제품의 환경 영향을 세밀하게 추적하고 의미 있는 개선 방향을 제안합니다.' },
+          ],
+          certifications: [
+            { name: '생물공학기사', targetCareer: '친환경 바이오소재 R&D 연구원', reason: '생물공정 및 바이오소재 합성에 관한 전공 핵심 역량을 증명하는 데 효과적입니다.' },
+            { name: 'OPIc / TOEIC Speaking (고급 어학)', targetCareer: '제약 · 바이오 학술 마케터(MSL/PM)', reason: '글로벌 논문 해석과 학술 커뮤니케이션 역량이 중요한 직무에서 핵심 기준이 됩니다.' },
+            { name: '수질환경기사 · 대기환경기사', targetCareer: '지속가능성 · LCA(전과정평가) 애널리스트', reason: '환경 규제와 물질 배출 지표 산정의 공학적 전문성을 뒷받침해 줍니다.' },
+          ],
+          studyAdvice: '본인이 진심으로 관심을 가진 친환경·바이오 키워드를 정해 관련 논문 요약이나 공모전 프로젝트로 연결해 보세요.',
+          theme: 'biopharma',
+        },
+        INTP: {
+          type: 'INTP',
+          nickname: '왜라는 질문으로 수율을 깨는 이론가',
+          description:
+            '공식을 무작정 암기하기보다 "왜 이 조건에서는 반응 속도가 달라질까?"라는 근본적인 호기심에서 공부를 시작하는 타입입니다. 혼자 밤새 원서와 논문을 파고들어 남들이 놓친 메커니즘을 찾아내는 데 희열을 느낍니다. 반복적인 루틴 업무보다 새로운 가설을 세우고 검증하는 연구·모델링 영역에서 최고의 성과를 냅니다.',
+          careers: [
+            { title: '촉매 · 고분자 신소재 R&D 연구원', sector: '석유화학 · 배터리 · 첨단소재', reason: '분자 수준 메커니즘을 탐구해 기존 물성의 한계를 넘는 신규 물질을 설계합니다.' },
+            { title: '공정 모델링 · AI 데이터 엔지니어', sector: '스마트 팩토리 · 화학 공정 DX', reason: '화공 도메인 지식과 논리적 모델링 사고를 결합해 공정을 수학적으로 최적화합니다.' },
+            { title: '반도체 단위공정 R&D 연구원', sector: '반도체 소자 · 소재 개발', reason: '미세한 물리·화학적 현상의 원인을 가설 검증 방식으로 끝까지 파고듭니다.' },
+          ],
+          certifications: [
+            { name: '화공기사', targetCareer: '촉매 · 고분자 신소재 R&D 연구원', reason: '반응공학·열역학 등 화학반응 메커니즘의 탄탄한 이론 기반을 보여줍니다.' },
+            { name: '데이터분석준전문가(ADsP) · SQLD', targetCareer: '공정 모델링 · AI 데이터 엔지니어', reason: '화공 도메인에 데이터 모델링·통계 해석 역량을 결합했음을 증명합니다.' },
+            { name: '화학분석기사', targetCareer: '반도체 단위공정 R&D 연구원', reason: '미세 박막·소재 특성 분석과 정밀 측정 데이터 판독 능력을 보증합니다.' },
+          ],
+          studyAdvice: '단순 성적보다 학부연구생 경험, 파이썬/MATLAB 공정 해석 프로젝트 등 "깊이 파고든 기록"이 강력한 차별점입니다.',
+          theme: 'materialsRd',
+        },
+        ESTP: {
+          type: 'ESTP',
+          nickname: '변수를 기회로 바꾸는 현장 승부사',
+          description:
+            '시험 기간에도 요점을 빠르게 캐치해 실전에 적용하고, 발표나 돌발 상황에서도 주눅 들지 않고 즉석에서 해결책을 찾아내는 행동파입니다. 책상 앞에 오래 앉아 있는 것보다 현장과 사람을 직접 오가며 즉각적인 피드백을 받는 환경에서 에너지가 솟습니다. 빠른 판단력과 추진력이 요구되는 양산 현장이나 기술영업에서 두각을 나타냅니다.',
+          careers: [
+            { title: '플랜트 시운전 · 현장 공정기술 엔지니어', sector: '석유화학 · 정유 · 에너지 플랜트', reason: '시시각각 변하는 운전 변수에 대처하며 현장을 역동적으로 움직이는 업무에 강합니다.' },
+            { title: 'B2B 화학 · 소재 기술영업 엔지니어', sector: '글로벌 화학사 · 반도체 소재', reason: '고객 현장의 니즈를 빠르게 파악해 전공 지식으로 즉각적인 솔루션을 제안합니다.' },
+            { title: '반도체 양산 수율 개선 엔지니어', sector: '반도체 · 디스플레이 제조', reason: '라인 이슈 발생 시 빠른 우선순위 판단과 실행력으로 지표를 회복시킵니다.' },
+          ],
+          certifications: [
+            { name: '화공기사 · 위험물산업기사', targetCareer: '플랜트 시운전 · 현장 공정기술 엔지니어', reason: '공정 운전 이론과 화학물질 취급 현장 안전 규정을 동시에 갖춘 실전형 스펙입니다.' },
+            { name: 'OPIc / TOEIC Speaking', targetCareer: 'B2B 화학 · 소재 기술영업 엔지니어', reason: '고객사 기술 미팅과 글로벌 비즈니스 커뮤니케이션 역량을 객관적으로 증명합니다.' },
+            { name: '데이터분석준전문가(ADsP) · 6시그마(GB)', targetCareer: '반도체 양산 수율 개선 엔지니어', reason: '공정 수율 데이터를 빠르게 분석하고 불량 원인을 개선하는 실무 감각을 보입니다.' },
+          ],
+          studyAdvice: '동아리 운영, 학술제 위기 대처, 현장실습 등 "빠른 판단으로 문제를 돌파한 실전 사례"를 앞세우세요.',
+          theme: 'processTech',
+        },
+        ESFP: {
+          type: 'ESFP',
+          nickname: '분위기와 실행력을 끌어올리는 메신저',
+          description:
+            '어색한 조별과제 첫 모임도 금세 활기차게 만들고, 학과 동아리나 행사에서 사람들을 하나로 모으는 타고난 에너지의 소유자입니다. 혼자 틀어박혀 공부하기보다 스터디를 통해 함께 배우고 말로 설명할 때 기억이 가장 오래 남습니다. 탄탄한 전공 기본기에 사람을 사로잡는 소통력이 더해져 비즈니스 접점 직무에서 크게 빛납니다.',
+          careers: [
+            { title: '제약 · 헬스케어 B2B 기술영업', sector: '제약 · 의료기기 · 바이오', reason: '제품의 전문 지식을 고객의 눈높이에 맞춰 설득력 있고 호감 있게 전달합니다.' },
+            { title: '화장품 · 소비재 상품기획(BM)', sector: '뷰티 · 퍼스널케어 브랜드', reason: '시장 트렌드를 민감하게 포착하고 연구팀과 마케팅팀을 유쾌하게 연결합니다.' },
+            { title: '테크니컬 트레이닝 · 고객지원 스페셜리스트', sector: '화학 · 분석장비 · 솔루션', reason: '실습 교육과 클라이언트 세미나를 에너지 넘치게 이끌며 높은 신뢰를 얻습니다.' },
+          ],
+          certifications: [
+            { name: 'OPIc / TOEIC Speaking (비즈니스 회화)', targetCareer: '제약 · 헬스케어 B2B 기술영업', reason: '대외 미팅 및 글로벌 제약·바이오 고객 응대에서 최우선으로 평가받는 필수 역량입니다.' },
+            { name: '맞춤형화장품조제관리사', targetCareer: '화장품 · 소비재 상품기획(BM)', reason: '화공생물공학 전공 기반의 성분·제형 전문성을 소비재 기획에 접목할 수 있습니다.' },
+            { name: '화학분석기사 · 생물공학기사', targetCareer: '테크니컬 트레이닝 · 고객지원 스페셜리스트', reason: '장비 및 솔루션 기술 교육 시 현장 신뢰도를 높여주는 공인 기술 자격입니다.' },
+          ],
+          studyAdvice: '전공 프로젝트에서 발표·커뮤니케이션을 맡아 설득력을 높였던 결과와 협업 성과를 구체적 수치로 보여주세요.',
+          theme: 'techPm',
+        },
+        ENFP: {
+          type: 'ENFP',
+          nickname: '경계를 넘나드는 융합형 아이디어 뱅크',
+          description:
+            '전공 수업에서 배운 개념을 전혀 다른 산업이나 일상 아이디어와 연결해 새로운 기획을 떠올리는 데 능숙합니다. 정해진 틀대로 반복하는 과제보다 백지에서 새로운 주제를 제안하는 캡스톤·공모전에서 폭발적인 열정을 발휘합니다. 사람과의 교류에서 영감을 얻고 기술을 세상에 매력적으로 소개하는 융합형 커리어가 잘 어울립니다.',
+          careers: [
+            { title: '신사업 · 오픈이노베이션 기획자', sector: '에너지 · 화학 · 대기업 신사업', reason: '외부 스타트업·연구기관과 협업해 새로운 기술 비즈니스 모델을 발굴합니다.' },
+            { title: '바이오 · 헬스케어 프로덕트 매니저(PM)', sector: '디지털 헬스 · 바이오 기업', reason: '연구 개발과 시장 니즈 사이를 넘나들며 제품의 방향성과 가치를 기획합니다.' },
+            { title: '기술 마케팅 · 테크니컬 컨설턴트', sector: '친환경 소재 · 글로벌 화학사', reason: '복잡한 화학·바이오 기술의 가능성을 매력적인 시장 메시지로 풀어냅니다.' },
+          ],
+          certifications: [
+            { name: '지식재산능력시험(IPAT)', targetCareer: '신사업 · 오픈이노베이션 기획자', reason: '신기술 발굴 및 특허·기술사업화 검토 능력을 증명하는 실용적인 자격입니다.' },
+            { name: '데이터분석준전문가(ADsP) · SQLD', targetCareer: '바이오 · 헬스케어 프로덕트 매니저(PM)', reason: '제품 기획과 사용자·시장 지표 분석을 데이터 기반으로 수행할 수 있음을 보여줍니다.' },
+            { name: 'OPIc / TOEIC Speaking', targetCareer: '기술 마케팅 · 테크니컬 컨설턴트', reason: '글로벌 파트너사와의 기술 소개 및 컨설팅 프레젠테이션 역량을 입증합니다.' },
+          ],
+          studyAdvice: '화공 지식에 타 전공(경영·데이터·디자인)을 결합한 교내외 공모전·학회 활동이 최고의 차별화 포인트입니다.',
+          theme: 'techPm',
+        },
+        ENTP: {
+          type: 'ENTP',
+          nickname: '기존 공정에 질문을 던지는 혁신 전략가',
+          description:
+            '"왜 꼭 이 공정 순서를 써야 하지?"라며 당연하게 여겨지는 전제에 날카로운 질문을 던지는 논리적 도전자입니다. 스터디나 조별과제에서도 치열한 토론을 통해 더 나은 해법을 찾아내는 과정을 즐깁니다. 단순 반복보다 복잡한 기술·시장 문제를 새롭게 재정의하고 돌파구를 설계하는 직무에서 압도적인 매력을 발휘합니다.',
+          careers: [
+            { title: '차세대 공정 · 신규 사업개발(BD)', sector: '에너지 · 배터리 · 클린테크', reason: '기술의 경제성과 확장성을 빠르게 계산해 새로운 시장 기회를 선점합니다.' },
+            { title: '기술특허 · 변리/IP 전략 담당자', sector: '화학 · 바이오 · 반도체 IP팀', reason: '발명의 핵심 기술 원리를 논리적으로 분석하고 권리 범위를 치밀하게 설계합니다.' },
+            { title: '딥테크 · 소재 스타트업 프로덕트 매니저', sector: '신소재 · 바이오 벤처', reason: '빠르게 변하는 환경 속에서 기술과 비즈니스의 핵심 가설을 검증하며 성장합니다.' },
+          ],
+          certifications: [
+            { name: '화공기사', targetCareer: '차세대 공정 · 신규 사업개발(BD)', reason: '공정의 기술적 타당성과 경제성 평가를 논리적으로 뒷받침하는 핵심 기반 자격입니다.' },
+            { name: '지식재산능력시험(IPAT)', targetCareer: '기술특허 · 변리/IP 전략 담당자', reason: '특허 명세서 해석과 IP 포트폴리오 전략 수립에 대한 기본 소양을 증명합니다.' },
+            { name: '데이터분석준전문가(ADsP)', targetCareer: '딥테크 · 소재 스타트업 프로덕트 매니저', reason: '비즈니스 가설 검증과 시장 데이터를 빠르게 해석하는 분석 역량을 보여줍니다.' },
+          ],
+          studyAdvice: '캡스톤 설계에서 "기존 공정 대비 경제성·효율을 혁신적으로 바꾼 아이디어"의 근거 데이터를 명확히 남겨두세요.',
+          theme: 'processDesign',
+        },
+        ESTJ: {
+          type: 'ESTJ',
+          nickname: '일정과 수율을 빈틈없이 완수하는 리더',
+          description:
+            '조별과제가 겉돌면 즉시 역할 분담표와 마감 타임라인을 세워 팀을 결승선까지 끌고 가는 추진력의 아이콘입니다. 시험 공부도 기출 유형과 배점 비중을 따져 가장 효율적인 루트로 목표 점수를 확보합니다. 명확한 목표, 수치로 증명되는 성과, 체계적인 조직 운영이 어우러진 산업 현장에서 믿고 맡길 수 있는 리더로 성장합니다.',
+          careers: [
+            { title: '생산관리 · 플랜트 운영 엔지니어', sector: '배터리 · 석유화학 · 정유', reason: '생산 일정, 원가, 수율 지표를 명확하게 관리하며 현장 팀을 체계적으로 이끕니다.' },
+            { title: 'EPC 플랜트 프로젝트 엔지니어(PM)', sector: '해외 플랜트 · 엔지니어링', reason: '수많은 협력사와 공정 일정을 조율해 대규모 프로젝트를 기한 내에 완수합니다.' },
+            { title: '품질경영(QM) · 공정감사 리더', sector: '반도체 · 제약 · 자동차 소재', reason: '원칙과 데이터를 기반으로 조직 전체의 품질 기준을 엄격히 정착시킵니다.' },
+          ],
+          certifications: [
+            { name: '화공기사 · 산업안전기사', targetCareer: '생산관리 · 플랜트 운영 엔지니어', reason: '플랜트 생산 라인 운영과 법정 안전관리 기준을 동시에 책임질 수 있는 필수 스펙입니다.' },
+            { name: '가스기사 · 위험물산업기사', targetCareer: 'EPC 플랜트 프로젝트 엔지니어(PM)', reason: '대규모 플랜트 시공 및 공정 관리 시 안전·인허가 기준을 이해하는 데 큰 도움이 됩니다.' },
+            { name: '품질경영기사 · 6시그마(GB/BB)', targetCareer: '품질경영(QM) · 공정감사 리더', reason: '지표 관리와 품질 프로세스 개선을 체계적으로 주도할 수 있음을 입증합니다.' },
+          ],
+          studyAdvice: '학생회·동아리나 캡스톤 팀장으로서 "일정·갈등을 구조화해 목표 지표를 달성한 경험"을 전면에 내세우세요.',
+          theme: 'processTech',
+        },
+        ESFJ: {
+          type: 'ESFJ',
+          nickname: '팀의 시너지를 극대화하는 커뮤니케이터',
+          description:
+            '선후배·동기 네트워크가 탄탄하고, 조별과제에서도 팀원 모두가 소외되지 않도록 역할을 세심하게 챙기는 협력형 리더입니다. 실용적인 예제 풀이로 기초를 튼튼히 다지면서 스터디 그룹의 꾸준한 완주를 이끌어냅니다. 기술적 전문성 위에 원활한 부서 간 소통과 고객 신뢰가 핵심인 직무에서 독보적인 존재감을 발휘합니다.',
+          careers: [
+            { title: '글로벌 제약 · 바이오 고객협력(RA/CDMO) PM', sector: '바이오 위탁생산(CDMO) · 제약', reason: '글로벌 고객사와 내부 생산·품질팀 사이의 요구사항을 매끄럽게 연결합니다.' },
+            { title: 'B2B 소재 · 화학 어카운트 매니저', sector: '정밀화학 · 전자재료', reason: '장기적인 파트너십을 구축하고 고객사의 기술적 요구를 내부 연구팀에 정확히 전달합니다.' },
+            { title: '연구개발(R&D) 코디네이터 · 기술지원', sector: '화학 · 소비재 연구소', reason: '여러 연구 파트의 일정을 조율하고 프로젝트가 순조롭게 진행되도록 뒷받침합니다.' },
+          ],
+          certifications: [
+            { name: '생물공학기사 · 품질경영기사', targetCareer: '글로벌 제약 · 바이오 고객협력(RA/CDMO) PM', reason: '바이오 위탁생산 공정 이해도와 GMP 품질 기준에 대한 신뢰감을 함께 제공합니다.' },
+            { name: 'OPIc / TOEIC Speaking', targetCareer: 'B2B 소재 · 화학 어카운트 매니저', reason: '글로벌 고객사와의 기술 요구사항 조율 및 비즈니스 협상에 필수적인 역량입니다.' },
+            { name: '화공기사', targetCareer: '연구개발(R&D) 코디네이터 · 기술지원', reason: '다양한 연구 파트의 기술 용어와 공정 흐름을 정확히 이해하고 조율하는 기반이 됩니다.' },
+          ],
+          studyAdvice: '다학제 팀플이나 동아리 연합 프로젝트에서 이해관계자 간 의견을 조율해 성과를 낸 에피소드가 큰 강점이 됩니다.',
+          theme: 'techPm',
+        },
+        ENFJ: {
+          type: 'ENFJ',
+          nickname: '사람과 기술을 연결해 성과를 만드는 촉매',
+          description:
+            '팀원들의 잠재력을 알아보고 동기부여를 불어넣으며, 기술이 사람과 시장에 어떤 가치를 줄 수 있는지 설득력 있게 그려내는 리더입니다. 후배들의 질문에도 눈높이를 맞춰 열정적으로 설명해 주고, 학과 활동에서도 자연스럽게 구심점이 됩니다. 기술적 깊이와 뛰어난 대인 영향력을 결합한 비즈니스·컨설팅 직무에 완벽히 어울립니다.',
+          careers: [
+            { title: '글로벌 기술영업 · 솔루션 컨설턴트', sector: '반도체 소재 · 특수화학 · 에너지', reason: '전공 지식을 기반으로 고객사의 비전을 함께 설계하며 신뢰 기반 계약을 이끌어냅니다.' },
+            { title: '제약 · 바이오 사업개발(BD) 매니저', sector: '글로벌 제약 · 바이오텍', reason: '파트너링 협상과 라이선싱 전략 수립에서 설득력과 추진력을 동시에 발휘합니다.' },
+            { title: 'ESG · 공급망 지속가능성 리더', sector: '글로벌 제조 · 화학 그룹', reason: '사내외 다양한 부서를 한 방향으로 설득해 지속가능한 공정 전환을 이끌어갑니다.' },
+          ],
+          certifications: [
+            { name: 'OPIc / TOEIC Speaking', targetCareer: '글로벌 기술영업 · 솔루션 컨설턴트', reason: '기술 솔루션을 설득력 있게 전달하고 글로벌 고객을 응대하는 데 가장 우선됩니다.' },
+            { name: '생물공학기사 · 지식재산능력시험(IPAT)', targetCareer: '제약 · 바이오 사업개발(BD) 매니저', reason: '바이오 기술 가치 평가와 기술 라이선싱 검토에 필요한 전공·IP 기초를 증명합니다.' },
+            { name: '대기환경기사 · 수질환경기사', targetCareer: 'ESG · 공급망 지속가능성 리더', reason: '친환경 공정 전환과 환경 규제 대응에 대한 공학적 설득력을 높여줍니다.' },
+          ],
+          studyAdvice: '팀원 간 갈등을 비전 제시로 해결한 리더십 경험과 산업 트렌드 이해도를 함께 어필하면 매우 강력합니다.',
+          theme: 'techPm',
+        },
+        ENTJ: {
+          type: 'ENTJ',
+          nickname: '거대한 플랜트와 비즈니스를 이끄는 지휘관',
+          description:
+            '공정 전체의 큰 그림과 최종 목표를 가장 먼저 파악하고, 가장 빠르고 논리적인 경로로 팀을 이끄는 카리스마형 설계자입니다. 캡스톤 디자인에서도 경제성 평가부터 공정 최적화, 최종 발표까지 전체 구조를 장악해 완성도를 끌어올립니다. 높은 목표 기준과 전략적 결단력이 요구되는 핵심 공정·전략 직무에서 빠르게 두각을 드러냅니다.',
+          careers: [
+            { title: '공정설계(P&ID) 리드 엔지니어', sector: '대규모 플랜트 · 에너지 · 이차전지', reason: '복잡한 다단 공정의 효율과 투자비를 동시에 최적화하는 총괄 설계 역량이 탁월합니다.' },
+            { title: '에너지 · 소재 기업 전략기획 · 신사업 PM', sector: '정유 · 화학 · 클린테크', reason: '기술 타당성과 시장 수익성을 냉철하게 판단해 기업의 차세대 먹거리를 결정합니다.' },
+            { title: '양산 라인 총괄 공정기술 엔지니어', sector: '반도체 · 배터리 · 디스플레이', reason: '명확한 KPI를 세우고 유관 부서를 지휘해 공정 수율과 생산성을 극대화합니다.' },
+          ],
+          certifications: [
+            { name: '화공기사', targetCareer: '공정설계(P&ID) 리드 엔지니어', reason: '플랜트 단위공정·열역학·물질수지 설계의 공학적 권위를 확보하는 대표 자격증입니다.' },
+            { name: '데이터분석준전문가(ADsP) · OPIc', targetCareer: '에너지 · 소재 기업 전략기획 · 신사업 PM', reason: '정량적 사업성 분석과 글로벌 신사업 커뮤니케이션 역량을 동시에 입증합니다.' },
+            { name: '위험물산업기사 · 6시그마(GB)', targetCareer: '양산 라인 총괄 공정기술 엔지니어', reason: '현장 라인 안전 기준과 데이터 기반 수율 최적화 역량을 함께 어필할 수 있습니다.' },
+          ],
+          studyAdvice: '캡스톤이나 공모전에서 기술적 완성도뿐만 아니라 "원가 절감·경제성·전략적 의사결정" 결과를 수치로 제시하세요.',
+          theme: 'processDesign',
+        },
+      };
+
+      const state = {
+        phase: 'start',
+        currentIndex: 0,
+        answers: {},
+        isTransitioning: false,
+      };
+
+      const appEl = document.getElementById('app');
+      const headerRightEl = document.getElementById('headerRight');
+      const brandHomeBtn = document.getElementById('brandHomeBtn');
+
+      function calculateResult() {
+        const counts = { E: 0, I: 0, S: 0, N: 0, T: 0, F: 0, J: 0, P: 0 };
+        Object.values(state.answers).forEach((rec) => {
+          counts[rec.trait] += 1;
+        });
+
+        const axes = [
+          { axis: 'EI', leftCode: 'E', rightCode: 'I', leftLabel: '외향 · 소통형 (E)', rightLabel: '내향 · 몰입형 (I)' },
+          { axis: 'SN', leftCode: 'S', rightCode: 'N', leftLabel: '실증 · 현장형 (S)', rightLabel: '직관 · 원리형 (N)' },
+          { axis: 'TF', leftCode: 'T', rightCode: 'F', leftLabel: '논리 · 분석형 (T)', rightLabel: '공감 · 조율형 (F)' },
+          { axis: 'JP', leftCode: 'J', rightCode: 'P', leftLabel: '계획 · 구조형 (J)', rightLabel: '유연 · 즉응형 (P)' },
+        ];
+
+        const breakdown = axes.map((item) => {
+          const leftCount = counts[item.leftCode];
+          const rightCount = counts[item.rightCode];
+          const total = Math.max(1, leftCount + rightCount);
+          const winner = leftCount >= rightCount ? item.leftCode : item.rightCode;
+          const winnerPercent = Math.round((Math.max(leftCount, rightCount) / total) * 100);
+          return { ...item, leftCount, rightCount, winner, winnerPercent };
+        });
+
+        const mbti = breakdown.map((b) => b.winner).join('');
+        return { profile: MBTI_PROFILES[mbti] || MBTI_PROFILES.ENTJ, breakdown };
+      }
+
+      function renderHeader() {
+        if (state.phase === 'start') {
+          headerRightEl.innerHTML = '<span class="header-meta">화공생물공학과 3·4학년</span>';
+        } else {
+          headerRightEl.innerHTML = '<button type="button" id="headerResetBtn" class="header-reset-btn">처음으로</button>';
+          document.getElementById('headerResetBtn').addEventListener('click', resetToStart);
+        }
+      }
+
+      function renderStart() {
+        appEl.innerHTML = `
+          <section class="container-wide fade-slide-in">
+            <div class="start-grid">
+              <div class="card start-main">
+                <div>
+                  <div class="meta-line">
+                    <span>화공생물공학과 3·4학년 대상</span>
+                    <span class="sep" aria-hidden="true">·</span>
+                    <span class="muted">총 12문항</span>
+                    <span class="sep" aria-hidden="true">·</span>
+                    <span class="muted">약 2분 소요</span>
+                  </div>
+                  <h1 class="start-title">
+                    나에게 맞는 화공과
+                    <span class="accent">직무 유형 테스트</span>
+                  </h1>
+                  <p class="start-desc">
+                    전공 시험 공부법, 조별과제와 캡스톤 디자인, 학과 동아리 상황 속 나의 선택을 바탕으로
+                    실제 일하는 스타일과 가장 잘 맞물리는 화공·바이오 직무 3가지와 추천 자격증을 진단합니다.
+                  </p>
+                </div>
+                <div>
+                  <div class="spectrum-box">
+                    <p class="spectrum-label">진단 대상 직무 스펙트럼</p>
+                    <p class="spectrum-list">
+                      공정설계 · 플랜트 · 공정기술 · 양산 · 화학 · 신소재 R&amp;D · 바이오 · 제약 · 품질관리(QA/QC) · 기술영업 · B2B PM
+                    </p>
+                  </div>
+                  <button type="button" id="startBtn" class="btn-primary start-cta">
+                    <span>시작하기</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="hero-visual-card">
+                <div class="hero-svg-wrap">${getRoleSvg('processDesign')}</div>
+                <div class="hero-caption">
+                  <p class="hero-caption-kicker">16가지 MBTI 기반 커리어 리포트</p>
+                  <p class="hero-caption-title">단순한 성격 나열이 아닌, 전공 수업과 팀플 태도로 검증하는 실전 직무 매칭</p>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+
+        document.getElementById('startBtn').addEventListener('click', () => {
+          state.answers = {};
+          state.currentIndex = 0;
+          state.phase = 'quiz';
+          state.isTransitioning = false;
+          render();
+        });
+      }
+
+      function renderQuestion() {
+        const q = QUIZ_QUESTIONS[state.currentIndex];
+        const total = QUIZ_QUESTIONS.length;
+        const pct = Math.round(((state.currentIndex + 1) / total) * 100);
+        const prevAnswer = state.answers[q.id]?.optionId;
+        const numLabel = String(q.id).padStart(2, '0');
+
+        appEl.innerHTML = `
+          <section class="container-narrow">
+            <div class="progress-header">
+              <div class="progress-top">
+                <button type="button" id="prevBtn" class="prev-btn" ${state.currentIndex === 0 ? 'disabled' : ''}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="m15 18-6-6 6-6"></path>
+                  </svg>
+                  <span>이전</span>
+                </button>
+                <div class="font-mono-num progress-counter">
+                  <span class="current">${state.currentIndex + 1}</span>
+                  <span class="slash">/</span>
+                  <span class="total">${total}</span>
+                </div>
+              </div>
+              <div class="progress-track" role="progressbar" aria-valuenow="${state.currentIndex + 1}" aria-valuemin="1" aria-valuemax="${total}">
+                <div class="progress-fill" style="width: ${pct}%"></div>
+              </div>
+            </div>
+
+            <div class="fade-slide-in">
+              <div class="card question-card">
+                <div class="question-context">Q${numLabel} · ${q.context}</div>
+                <h2 class="question-title">${q.question}</h2>
+              </div>
+
+              <div class="choices-list" role="radiogroup" aria-label="${q.question}">
+                ${q.options
+                  .map((opt) => {
+                    const active = prevAnswer === opt.id;
+                    return `
+                      <button type="button" class="choice-btn ${active ? 'is-active' : ''}" data-opt="${opt.id}" data-trait="${opt.trait}" role="radio" aria-checked="${active}">
+                        <div class="choice-inner">
+                          <span class="choice-badge font-mono-num">${
+                            active
+                              ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+                              : opt.id
+                          }</span>
+                          <div>
+                            <p class="choice-label">${opt.label}</p>
+                            <p class="choice-text">${opt.text}</p>
+                          </div>
+                        </div>
+                      </button>
+                    `;
+                  })
+                  .join('')}
+              </div>
+            </div>
+          </section>
+        `;
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+          if (state.isTransitioning || state.currentIndex === 0) return;
+          state.currentIndex -= 1;
+          render();
+        });
+
+        document.querySelectorAll('.choice-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            if (state.isTransitioning) return;
+            state.isTransitioning = true;
+
+            const optionId = btn.dataset.opt;
+            const trait = btn.dataset.trait;
+
+            document.querySelectorAll('.choice-btn').forEach((other) => {
+              other.classList.remove('is-active', 'animate-choice-pop');
+            });
+
+            btn.classList.add('is-active', 'animate-choice-pop');
+            const badge = btn.querySelector('.choice-badge');
+            if (badge) {
+              badge.innerHTML =
+                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+            }
+
+            window.setTimeout(() => {
+              state.answers[q.id] = { optionId, trait };
+              if (state.currentIndex + 1 < QUIZ_QUESTIONS.length) {
+                state.currentIndex += 1;
+              } else {
+                state.phase = 'result';
+              }
+              state.isTransitioning = false;
+              render();
+            }, 280);
+          });
+        });
+      }
+
+      function renderResult() {
+        const { profile, breakdown } = calculateResult();
+
+        appEl.innerHTML = `
+          <section class="container-wide result-stack fade-slide-in">
+            <div class="card result-hero-card">
+              <div class="result-hero-body">
+                <div>
+                  <p class="result-kicker">화공생물공학 직무 성향 진단 결과</p>
+                  <h1 class="font-display result-mbti">${profile.type}</h1>
+                  <h2 class="result-nickname">&ldquo;${profile.nickname}&rdquo;</h2>
+                  <p class="result-desc">${profile.description}</p>
+                </div>
+                <div class="result-advice">
+                  <p class="result-advice-label">취업·포트폴리오 어필 포인트</p>
+                  <p class="result-advice-text">${profile.studyAdvice}</p>
+                </div>
+              </div>
+              <div class="result-hero-visual">${getRoleSvg(profile.theme)}</div>
+            </div>
+
+            <div class="result-lower-grid">
+              <div class="result-left-col">
+                <div class="card section-card">
+                  <div class="section-head">
+                    <h3 class="section-title">어울리는 직무 3가지</h3>
+                    <span class="section-sub">전공 적합도 기준</span>
+                  </div>
+                  <div class="item-list">
+                    ${profile.careers
+                      .map(
+                        (c, i) => `
+                        <div class="item-row">
+                          <span class="font-mono-num item-num">0${i + 1}</span>
+                          <div class="item-content">
+                            <div class="item-title-row">
+                              <h4 class="item-title">${c.title}</h4>
+                              <span class="item-meta">${c.sector}</span>
+                            </div>
+                            <p class="item-desc">${c.reason}</p>
+                          </div>
+                        </div>
+                      `
+                      )
+                      .join('')}
+                  </div>
+                </div>
+
+                <div class="card section-card">
+                  <div class="section-head">
+                    <h3 class="section-title">추천 직무별 핵심 자격증</h3>
+                    <span class="section-sub">3·4학년 준비 추천</span>
+                  </div>
+                  <div class="item-list">
+                    ${profile.certifications
+                      .map(
+                        (cert, i) => `
+                        <div class="item-row">
+                          <span class="font-mono-num item-num">C${i + 1}</span>
+                          <div class="item-content">
+                            <div class="item-title-row">
+                              <h4 class="item-title">${cert.name}</h4>
+                              <span class="item-meta">연계 직무 · ${cert.targetCareer}</span>
+                            </div>
+                            <p class="item-desc">${cert.reason}</p>
+                          </div>
+                        </div>
+                      `
+                      )
+                      .join('')}
+                  </div>
+                </div>
+              </div>
+
+              <div class="card section-card">
+                <h3 class="section-title" style="margin-bottom: 18px;">나의 일하는 스타일 지표</h3>
+                <div class="axis-list">
+                  ${breakdown
+                    .map((ax) => {
+                      const leftWin = ax.winner === ax.leftCode;
+                      const leftPct = Math.round((ax.leftCount / 3) * 100);
+                      const rightPct = Math.round((ax.rightCount / 3) * 100);
+                      return `
+                        <div>
+                          <div class="axis-labels">
+                            <span class="${leftWin ? 'win' : 'lose'}">${ax.leftLabel}</span>
+                            <span class="font-mono-num pct">${ax.winner} ${ax.winnerPercent}%</span>
+                            <span class="${!leftWin ? 'win' : 'lose'}">${ax.rightLabel}</span>
+                          </div>
+                          <div class="axis-bar">
+                            <div class="${leftWin ? 'axis-seg-win' : 'axis-seg-lose'}" style="width: ${leftPct}%"></div>
+                            <div class="${!leftWin ? 'axis-seg-win' : 'axis-seg-lose'}" style="width: ${rightPct}%"></div>
+                          </div>
+                        </div>
+                      `;
+                    })
+                    .join('')}
+                </div>
+
+                <div class="action-stack">
+                  <button type="button" id="restartBtn" class="btn-primary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                      <path d="M3 3v5h5"></path>
+                    </svg>
+                    <span>다시 하기</span>
+                  </button>
+                  <button type="button" id="copyBtn" class="btn-secondary">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+                      <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+                    </svg>
+                    <span id="copyBtnLabel">결과 요약 복사하기</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        `;
+
+        document.getElementById('restartBtn').addEventListener('click', resetToStart);
+        document.getElementById('copyBtn').addEventListener('click', async () => {
+          const careerList = profile.careers.map((c, idx) => `${idx + 1}. ${c.title}`).join('\n');
+          const certList = profile.certifications
+            .map((cert) => `- ${cert.name} (${cert.targetCareer})`)
+            .join('\n');
+          const summaryText = `[나에게 맞는 화공과 직무 유형 테스트]\n유형: ${profile.type} — ${profile.nickname}\n\n어울리는 직무 TOP 3:\n${careerList}\n\n추천 자격증:\n${certList}`;
+
+          try {
+            await navigator.clipboard.writeText(summaryText);
+            const labelEl = document.getElementById('copyBtnLabel');
+            if (labelEl) {
+              labelEl.textContent = '결과 요약이 복사되었습니다';
+              labelEl.style.color = '#DC2626';
+              window.setTimeout(() => {
+                labelEl.textContent = '결과 요약 복사하기';
+                labelEl.style.color = '';
+              }, 2000);
+            }
+          } catch {
+            // Clipboard permission denied
+          }
+        });
+      }
+
+      function resetToStart() {
+        state.answers = {};
+        state.currentIndex = 0;
+        state.phase = 'start';
+        state.isTransitioning = false;
+        render();
+      }
+
+      function render() {
+        renderHeader();
+        if (state.phase === 'start') {
+          renderStart();
+        } else if (state.phase === 'quiz') {
+          renderQuestion();
+        } else {
+          renderResult();
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      brandHomeBtn.addEventListener('click', resetToStart);
+      render();
+    </script>
+  </body>
+</html>
